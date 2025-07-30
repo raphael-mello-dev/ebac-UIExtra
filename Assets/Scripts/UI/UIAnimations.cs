@@ -1,12 +1,36 @@
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.EventSystems;
+using TMPro;
+
+public enum UINames
+{
+    Play,
+    Quit,
+    Settings,
+    Facebook,
+    Missions,
+    Messages,
+    Ranking,
+    Profile,
+    Shop
+}
 
 public class UIAnimations : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     private float startPosY;
+    private TextMeshProUGUI uiText;
+    [SerializeField] private UINames objName;
+
+    private void Awake()
+    {
+        uiText = GameObject.FindFirstObjectByType<TextMeshProUGUI>();
+    }
+
     public void OnPointerEnter(PointerEventData eventData)
     {
+        uiText.text = objName.ToString();
+
         if (gameObject.name.Contains("Play") || gameObject.name.Contains("Exit"))
             UIHoverScale(1.2f);
         else if (!gameObject.name.Contains("Settings"))
