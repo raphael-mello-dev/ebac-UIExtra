@@ -16,11 +16,12 @@ public enum UINames
     Shop
 }
 
-public class UIAnimations : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class UIAnimations : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
     private float startPosY;
     private TextMeshProUGUI uiText;
     [SerializeField] private UINames objName;
+    [SerializeField] private ParticleSystem iconParticle;
 
     private void Awake()
     {
@@ -65,5 +66,14 @@ public class UIAnimations : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     private void UIHoverScale(float size)
     {
         transform.DOScale(size, 0.2f);
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (gameObject.name.Contains("Play"))
+        {
+            iconParticle.transform.position = transform.position;
+            iconParticle.Play();
+        }
     }
 }
